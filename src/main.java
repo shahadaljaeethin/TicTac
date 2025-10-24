@@ -1,3 +1,5 @@
+import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 import java.util.HashMap;
 
@@ -9,7 +11,8 @@ public class main {
 /* Game loop:
 ========================================================================================
 ========================================================================================
-*/    while(true){
+*/
+ while(true){
     try {
         print("Type (Y/y) to start a new game: ");
         choice = r.next();
@@ -45,7 +48,7 @@ public static void startGame(){
         //2.show the board
         printBoard(board);
         //3.take the input
-        updateBoard(board);
+       board = updateBoard(board);
         //4.check the winner
                  }
         //5.return a score!
@@ -53,7 +56,7 @@ public static void startGame(){
 }
 
 public static void printBoard(char[][] board){
-    //this method to print the given board.
+        //this method to print the given board.
         int colmn = 0;
         for(int i=0;i<board.length;i++) //rows
          {
@@ -77,12 +80,15 @@ char[][] newBoard = old;
 Scanner r = new Scanner(System.in);
 int index,row,colmn;
 int[] pairs;
-
+Random computer = new Random();
         print("\n***(player X's turn)***");
-        //1.ask the player
+        print("\n===================\n");
+
+    //1.ask the player
         while(true) {
+        index=0; //in case of catch
         try {
-            print("\nEnter the index:");
+            print("\nEnter the index:\n");
             index = r.nextInt();
             pairs =  getPair(index);      //may throw exception if index is out of board
             isEmpty(index,old);          //may throw exception if the index is taken.
@@ -92,13 +98,13 @@ int[] pairs;
             newBoard[row][colmn]='X';
             break;
         }
-        catch (IndexOutOfBoundsException e){}
-        catch (Exception e){}
+        catch (InputMismatchException e){print("\nindex must be numbers from the board.\n"); r.nextLine();}
+        catch (IndexOutOfBoundsException e){print("\nError in array reading.\n");}
+        catch (Exception e){print("\nINDEX ERROR: "+e.getMessage()); }
         }
         //2.play the computer
-        print("\n***(player O's turn)***");
-
-
+        print("\n***(player O's turn)***\n");
+        print("\n===================\n");
         return newBoard;
 
 }
@@ -118,7 +124,7 @@ HashMap<Integer,int[]> board = new HashMap<>();
     board.put(8,new int[]{2,1});
     board.put(9,new int[]{2,2});
             if(blockIndex<=0||blockIndex>=10)
-            throw new Exception("the entered index is wrong!");
+            throw new Exception("the entered index out of bound!");
     pairs = board.get(blockIndex);
     return pairs;
 }
