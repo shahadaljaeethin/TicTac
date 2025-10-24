@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class main {
     public static void main(String[] args){
@@ -17,6 +18,13 @@ public class main {
     print("\nHope you enjoyed the game.");
     }//main
 
+
+
+
+/*
+========================================================================================
+========================================================================================
+*/
     public static void printBoard(char[][] board){
     int colmn = 0;
         for(int i=0;i<board.length;i++) //rows
@@ -29,6 +37,26 @@ public class main {
          }
 
     }
+
+public static int[] getPair(int blockIndex)throws Exception{
+int[] pairs = new int[2]; // (x,y) = (row,colmn)
+HashMap<Integer,int[]> board = new HashMap<>();
+//here is the index with its location in the board array.
+    board.put(1,new int[]{0,0});
+    board.put(2,new int[]{0,1});
+    board.put(3,new int[]{0,2});
+    board.put(4,new int[]{1,0});
+    board.put(5,new int[]{1,1});
+    board.put(6,new int[]{1,2});
+    board.put(7,new int[]{2,0});
+    board.put(8,new int[]{2,1});
+    board.put(9,new int[]{2,2});
+            if(blockIndex<=0||blockIndex>=10)
+            throw new Exception("the entered index is wrong!");
+    pairs = board.get(blockIndex);
+    print("="+pairs[0]+","+pairs[1]);
+    return pairs;
+}
 public static void startGame(){
     //create new board.
     char[][] board = {
