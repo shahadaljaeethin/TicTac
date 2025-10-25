@@ -30,7 +30,7 @@ Scanner r = new Scanner(System.in);
          else scoreDraw++;
          break;
          case 2: scores(scoreX,scoreO,scoreDraw); break;
-         case 3: print("\nHope you enjoyed the game."); break;
+         case 3: print("\nHope you enjoyed the game.\ncoded by Shahad."); break;
          default: throw new InputMismatchException();
      }
     }
