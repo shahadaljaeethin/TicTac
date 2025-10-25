@@ -2,11 +2,17 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.HashMap;
-
 public class main {
-    public static void main(String[] args){
-    Scanner r = new Scanner(System.in);
-    print("Welcome to  Tic Tac Toe game!\nyou will play againts the computer.\n");
+public static final String GREEN = "\u001B[32m";
+public static final String DEFULT = "\u001B[0m";
+public static final String colorX = "\u001B[31m";
+public static final String colorO = "\u001B[34m";
+    public static final String WARNING = "\u001B[33m";
+
+public static void main(String[] args){
+Scanner r = new Scanner(System.in);
+
+    print(GREEN+"Welcome to  Tic Tac Toe game!\nyou will play againts the computer.\n"+DEFULT);
     String choice = "Y";
 /* Game loop:
 ========================================================================================
@@ -53,7 +59,9 @@ char someoneWon ='N';
         //4.check the winner
         someoneWon= haveWinner(board);   }
         //5.return a score!
+        if(someoneWon!='D')
         print(someoneWon+" has won!\n");
+        else print(GREEN+"!!X/O DRAW!!"+DEFULT);
 }
 
 public static void printBoard(char[][] board){
@@ -61,8 +69,13 @@ public static void printBoard(char[][] board){
         int colmn = 0;
         for(int i=0;i<board.length;i++) //rows
          {
-             for(int c=colmn;c<(colmn+3);c++)  //colmn
-              print("[" + board[i][c] + "]");
+             for(int c=colmn;c<(colmn+3);c++) { //colmn
+              if(board[i][c]=='X')
+                   print("[" +colorX +board[i][c] +DEFULT +"]");
+             else if(board[i][c]=='O')
+                    print("[" +colorO +board[i][c] +DEFULT +"]");
+             else   print("[" + board[i][c] + "]");
+              }
 
               print("\n-----------\n");
          }}
@@ -99,9 +112,9 @@ Random random = new Random();
             newBoard[row][colmn]='X';
             break;
         }
-        catch (InputMismatchException e){print("\nindex must be numbers from the board.\n"); r.nextLine();}
-        catch (IndexOutOfBoundsException e){print("\nError in array reading.\n");}
-        catch (Exception e){print("\nINDEX ERROR: "+e.getMessage()); r.nextLine(); }
+        catch (InputMismatchException e){print(WARNING+"\nindex must be numbers from the board.\n"+DEFULT); r.nextLine();}
+        catch (IndexOutOfBoundsException e){print(WARNING+"\nError in array reading.\n"+DEFULT);}
+        catch (Exception e){print(WARNING+"\nINDEX ERROR: "+e.getMessage()+DEFULT); r.nextLine(); }
         }
         //2.play the computer
         while(true){
@@ -113,14 +126,28 @@ Random random = new Random();
         colmn = pairs[1];
         newBoard[row][colmn]='O';
         break;
-        }catch (Exception e){}//don't show a message just re-choice again.
+        }catch (Exception e){
+        if(isFull(newBoard)) {break;}
+
+        }//case1: don't show a message just re-choice again. case2: check if board is full
         }
         return newBoard;
 
 }
-
+    public static boolean  isFull(char[][] old){
+        boolean full = false;
+        int counter =0;  //max 9
+        for(int r=0;r<3;r++) {
+        for(int c=0;c<3;c++)
+            if (old[r][c] == 'X' || old[r][c] == 'O') counter++;
+        }
+        if(counter==0) full=true;
+        return full;
+        }
 public static char haveWinner(char[][] board){
-char win = 'N';//N = nobody , X = x won , O = o won.
+char win = 'N';//N = nobody , X = x won , O = o won , D = draw.
+if(isFull(board)) return 'D';
+
 for(int r=0;r<3;r++){   //winnig in Rows
     if(board[r][0]=='X'&&board[r][1]=='X'&&board[r][2]=='X')  win = 'X';
     else if(board[r][0]=='O'&&board[r][1]=='O'&&board[r][2]=='O')  win = 'O';
