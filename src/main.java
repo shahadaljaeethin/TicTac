@@ -5,17 +5,17 @@ import java.util.HashMap;
 public class main {
 public static final String GREEN = "\u001B[32m";
 public static final String DEFULT = "\u001B[0m";
-public static final String colorX = "\u001B[31m";
-public static final String colorO = "\u001B[34m";
+public static final String colorX = "\u001B[31m";   //red for X
+public static final String colorO = "\u001B[34m";   //blue for O
 public static final String WARNING = "\u001B[33m";
 
 public static void main(String[] args){
-Scanner r = new Scanner(System.in);
 
     print("Welcome to  Tic Tac Toe game!\nyou will play againts the computer.\n");
     int choice=0 ; int scoreX =0, scoreO=0, scoreDraw=0; char winner;
+    Scanner r = new Scanner(System.in);
+
 /* Game loop:
-========================================================================================
 ========================================================================================
 */
  while(choice!=3){
@@ -57,7 +57,6 @@ if(X==0)print(kindMessage+"X..\n");
 if(O==0)print(kindMessage+"O..\n");
 }
 }
-
 
 public static char startGame(){
 //this method plays a new round and finally returns winner's name or draw. (X,O,D)
@@ -158,8 +157,9 @@ Random random = new Random();
         return newBoard;
 
 }
-    public static boolean  isFull(char[][] old){
-    //this method to check if the board is full AKA all blocks are taken.
+
+public static boolean  isFull(char[][] old){
+//this method to check if the board is full AKA all blocks are taken.
         boolean full = false;
         int counter =0;  //max 9
         for(int r=0;r<3;r++) {
@@ -198,7 +198,8 @@ printBoard(board);}
 
 
 public static int[] getPair(int blockIndex)throws Exception{
-    //this method to return pairs of given index for better UX.
+//this method to return pairs of given index for better UX.
+
 int[] pairs = new int[2]; // (x,y) = (row,colmn)
 HashMap<Integer,int[]> board = new HashMap<>();
 //here is the index with its location in the board array.
