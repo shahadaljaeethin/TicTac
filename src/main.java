@@ -7,32 +7,36 @@ public static final String GREEN = "\u001B[32m";
 public static final String DEFULT = "\u001B[0m";
 public static final String colorX = "\u001B[31m";
 public static final String colorO = "\u001B[34m";
-    public static final String WARNING = "\u001B[33m";
+public static final String WARNING = "\u001B[33m";
 
 public static void main(String[] args){
 Scanner r = new Scanner(System.in);
 
-    print(GREEN+"Welcome to  Tic Tac Toe game!\nyou will play againts the computer.\n"+DEFULT);
-    String choice = "Y";
+    print("Welcome to  Tic Tac Toe game!\nyou will play againts the computer.\n");
+    int choice=0 ; int scoreX =0, scoreO=0, scoreDraw=0; char winner;
 /* Game loop:
 ========================================================================================
 ========================================================================================
 */
- while(true){
+ while(choice!=3){
     try {
-        print("Type (Y/y) to start a new game: ");
-        choice = r.next();
-        if (!choice.equalsIgnoreCase("y")) break;
-        //show scores.
-
-        //start new round
-        startGame();
-
-        }catch (Exception e){}
+    print(GREEN+"-#choose from menu#-\n# 1.start a new game.\n# 2.show scores.\n# 3.close game.\n"+DEFULT+"");
+    choice=r.nextInt();
+    winner=' ';
+     switch (choice) {
+         case 1: winner=startGame();
+         if(winner=='X')scoreX++;
+         else if(winner=='O')scoreO++;
+         else scoreDraw++;
+         break;
+         case 2: scores(scoreX,scoreO,scoreDraw); break;
+         case 3: print("\nHope you enjoyed the game."); break;
+         default: throw new InputMismatchException();
+     }
     }
-
-
-    print("\nHope you enjoyed the game.");
+    catch (InputMismatchException e){print("choose 1 or 2 or 3..\n"); r.nextLine();}
+    catch (Exception e){print(e.getMessage());}
+    }//end of while
     }//main
 
 
@@ -42,7 +46,24 @@ Scanner r = new Scanner(System.in);
 ========================================================================================
 ========================================================================================
 */
-public static void startGame(){
+public static void scores(int X,int O,int Draw){
+if(X==0&&O==0&&Draw==0)
+print("\nYou haven't started any game yet.\n");
+else{
+String kindMessage = "better luck ";
+print("X: "+X+"\nO: "+O+"\nthe draw rounds: "+Draw+"\n======================\n");
+if(X==0)print(kindMessage+"X..\n");
+if(O==0)print(kindMessage+"O..\n");
+
+}
+
+
+
+
+}
+
+
+public static char startGame(){
 char someoneWon ='N';
     //1.create new board.
     char[][] board = {
@@ -58,10 +79,15 @@ char someoneWon ='N';
        board = updateBoard(board);
         //4.check the winner
         someoneWon= haveWinner(board);   }
-        //5.return a score!
-        if(someoneWon!='D')
-        print(someoneWon+" has won!\n");
-        else print(GREEN+"!!X/O DRAW!!"+DEFULT);
+        //5.show score!
+        if(someoneWon=='X')
+             print(colorX+someoneWon+DEFULT+" has won!\n");
+        else if(someoneWon=='O')
+             print(colorO+someoneWon+DEFULT+" has won!\n");
+        else if(someoneWon!='D')
+             print(GREEN+"!!X/O DRAW!!"+DEFULT);
+
+             return  someoneWon;
 }
 
 public static void printBoard(char[][] board){
@@ -141,7 +167,7 @@ Random random = new Random();
         for(int c=0;c<3;c++)
             if (old[r][c] == 'X' || old[r][c] == 'O') counter++;
         }
-        if(counter==0) full=true;
+        if(counter==9) full=true;
         return full;
         }
 public static char haveWinner(char[][] board){
