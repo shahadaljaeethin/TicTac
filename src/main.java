@@ -51,7 +51,7 @@ if(X==0&&O==0&&Draw==0)
 print("\nYou haven't started any game yet.\n");
 else{
 String kindMessage = "better luck ";
-print("X: "+X+"\nO: "+O+"\nthe draw rounds: "+Draw+"\n======================\n");
+print("======================\nX: "+X+"\nO: "+O+"\nthe draw rounds: "+Draw+"\n======================\n");
 if(X==0)print(kindMessage+"X..\n");
 if(O==0)print(kindMessage+"O..\n");
 
@@ -84,8 +84,8 @@ char someoneWon ='N';
              print(colorX+someoneWon+DEFULT+" has won!\n");
         else if(someoneWon=='O')
              print(colorO+someoneWon+DEFULT+" has won!\n");
-        else if(someoneWon!='D')
-             print(GREEN+"!!X/O DRAW!!"+DEFULT);
+        else if(someoneWon=='D')
+             print("-!!X/O DRAW!!-\n");
 
              return  someoneWon;
 }
@@ -164,9 +164,10 @@ Random random = new Random();
         boolean full = false;
         int counter =0;  //max 9
         for(int r=0;r<3;r++) {
-        for(int c=0;c<3;c++)
-            if (old[r][c] == 'X' || old[r][c] == 'O') counter++;
+        for(int c=0;c<3;c++){
+            if (old[r][c] == 'X' || old[r][c] == 'O') counter++;}
         }
+        //print("\nTEST COUNTER="+counter+"\n");
         if(counter==9) full=true;
         return full;
         }
