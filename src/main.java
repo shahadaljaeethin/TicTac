@@ -47,6 +47,7 @@ Scanner r = new Scanner(System.in);
 ========================================================================================
 */
 public static void scores(int X,int O,int Draw){
+//this method prints the scores
 if(X==0&&O==0&&Draw==0)
 print("\nYou haven't started any game yet.\n");
 else{
@@ -54,17 +55,13 @@ String kindMessage = "better luck ";
 print("======================\nX: "+X+"\nO: "+O+"\nthe draw rounds: "+Draw+"\n======================\n");
 if(X==0)print(kindMessage+"X..\n");
 if(O==0)print(kindMessage+"O..\n");
-
 }
-
-
-
-
 }
 
 
 public static char startGame(){
-char someoneWon ='N';
+//this method plays a new round and finally returns winner's name or draw. (X,O,D)
+char someoneWon ='N'; //N = nobody won yet
     //1.create new board.
     char[][] board = {
             {'1', '2', '3'}, //board[0] = row #1      [0][1][2] colmn
@@ -107,6 +104,7 @@ public static void printBoard(char[][] board){
          }}
 
 public static void  isEmpty(int index,char[][] old)throws Exception{
+//this method returns whether the givin index is avilable or taken.
 int[] pairs = getPair(index);
 int row = pairs[0], colmn = pairs[1];
 
@@ -115,7 +113,7 @@ throw new Exception("index "+index+" is already taken,");
 }
 
 public static char[][] updateBoard(char[][] old){
-//this method to add the player&Computer 's movement. (adds two movement)
+//this method to add the player&Computer 's movement. (adds two movements per call)
 char[][] newBoard = old;
 Scanner r = new Scanner(System.in);
 int index,row,colmn;
@@ -161,6 +159,7 @@ Random random = new Random();
 
 }
     public static boolean  isFull(char[][] old){
+    //this method to check if the board is full AKA all blocks are taken.
         boolean full = false;
         int counter =0;  //max 9
         for(int r=0;r<3;r++) {
@@ -172,6 +171,7 @@ Random random = new Random();
         return full;
         }
 public static char haveWinner(char[][] board){
+//this method checks if someone won
 char win = 'N';//N = nobody , X = x won , O = o won , D = draw.
 if(isFull(board)) return 'D';
 
